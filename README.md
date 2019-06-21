@@ -19,3 +19,6 @@ This includes a customized .vimrc file that uses the plugins in .gitmodules.
 Uses the Vundle plugin manager with several plugins already installed (see .gitmodules). Plugins can be managed and turned off easily with Vundle.
 
 NOTE: I removed the .git directories from the plugins so the entire repo can be downloaded and work "out of the box"
+
+NOTE: The documap plugin comes from Damian Conway's Vim Setup (https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup), which is why it's symlinked.
+To use another plugin from Damian's repo, follow the same setup as documap.
