@@ -1,8 +1,6 @@
 # home-setup
 Linux/Unix setup, config, and customization files for bash, vim, ksh, etc.
 
-+++++++++++++++++++++++++++++++++++++++++++
-
 ## SETUP/INSTALLATION:
 To setup and use, move all desired files to your $HOME directory.
 This setup assumes the login shell is ksh. After logging in with ksh, it will run an interactive bash shell.
