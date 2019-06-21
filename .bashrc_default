@@ -1,0 +1,38 @@
+#WARNING: This file is ONLY for interactive shell; Do NOT run cmds that print output!
+
+#Learning the Bash Shell, 3rd ed, p. 79:
+#The only things that really need to be in .bash_profile are 
+#environment variables and their exports and commands that aren't definitions 
+#but actually run or produce output when you log in. 
+#Option and alias definitions should go into the environment file.
+trap "echo '$LOGNAME logged out'" 0
+
+# Source system global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Conversion specific setup
+#
+# Activate default conversion setup
+if [ -f /usr/local/conv/cnv_config/env_setup.sh ]; then
+	. /usr/local/conv/cnv_config/env_setup.sh > /dev/null
+fi
+
+export SHELL=$(which bash)
+
+# clean up the PATH
+export PATH=$(cleanpath)
+
+# Autosys compatible for interactive shells
+if [[ $- = *i* ]]; then
+	echo "Running $SHELL"
+	echo ""
+	echo '$PATH AFTER env_setup.sh: '$PATH
+	echo ""
+	echo '$HISTFILE:'$HISTFILE
+	echo ""
+	date
+	#ottocheck
+	svccheck
+fi 

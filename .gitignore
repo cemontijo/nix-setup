@@ -1,0 +1,64 @@
+# Ignore all
+*
+
+# Unignore all files with extenions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# log files
+*.log
+
+# Backup files
+*bak
+*/bak
+bak/
+*/bak/
+*/bak/*
+
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.so
+
+# Executables
+*.exe
+*.out
+bin/*
+
+aim.cfg
+.aim.cfg
+
+# VIM Undo files
+.VIM_UNDO_FILES/*
+!.VIM_UNDO_FILES/.gitignore
+
+# git files
+.gitconfig
+
+# Personal files
+.forward
+.emacs
+.*history
+.ksh_aliases
+.ksh_envvars
+.lastlogin
+.lesshst
+.microsoft/
+.oracle_jre_usage/
+.sqlcl/
+.ssh/
+.vdx
+.viminfo
+*.netrwhist
+develop/**
+*.zip
+tmp/
+sample.vimrc
