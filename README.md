@@ -3,7 +3,15 @@ Linux/Unix setup, config, and customization files for bash, vim, ksh, etc.
 
 ## SETUP/INSTALLATION:
 To setup and use, move all desired files to your $HOME directory.
-This setup assumes the login shell is ksh. After logging in with ksh, it will run an interactive bash shell.
+
+
+## Bash setup: 
+This setup assumes the default login shell is ksh. After logging in with ksh, it will run an interactive bash shell. 
+
+When you exit the server, the shell (ksh/bash) will run .bash_logout
+
+.bashrc uses functions that are defined in .bash_profile
+
 
 ## Vim setup: 
 This includes a customized .vimrc file that uses the plugins in .gitmodules.
