@@ -14,6 +14,11 @@
 " This must be first, because it changes other options as a side effect.
 :set nocompatible "required for Vundle
 
+"Turn off due to vulnerability and keep my own settings:
+"https://arstechnica.com/information-technology/2019/06/if-you-havent-patched-vim-or-neovim-text-editors-you-really-really-should/ 
+set nomodeline
+set modelines=0
+
 " A sample vimrc file:
 "	$VIMRUNTIME/vimrc_example.vim
 
@@ -29,13 +34,13 @@
 ":set all 
 
 "TODO: Add CUSTOM paths for Vim to search at runtime 
-"if $USER == $PRIVILEGED_USER
-	":set rtp+=/usr/local/conv/etc/vim
+if $USER == $PRIVILEGED_USER
+	:set rtp+=/usr/local/conv/etc/vim
 	":set rtp+=/usr/local/conv/etc/vim/bundle/Vundle.vim
 	":set rtp+=/home/montijo/.vim
-"endif
+endif
 ":set runtimepath+=~/.vim/plugin
- 
+
 "============================================================================
 "Plugin Managers
 "Vundle downloads/updates plugins from GitHub/online
@@ -60,7 +65,7 @@ Plugin 'thoughtstream/Damian-Conway-s-Vim-Setup', {'rtp': 'plugin/'}
 Plugin 'documap' "symlink
 
 "Plugin 'Valloric/YouCompleteMe'
-Plugin 'ucompleteme'
+"Plugin 'ucompleteme'
 
 Plugin 'google/vim-searchindex'
 "Plugin 'vim-indexed-search-master'
@@ -74,12 +79,23 @@ Plugin 'google/vim-searchindex'
 "Requires cscope installed on server, and Vim must have it turned on
 "Plugin 'cscope-maps'
 
+"Mappings Collide with other plugins
+Plugin 'bash-support.vim' 
+
+" Color schemes
+Plugin 'gruvbox' 
+"Plugin 'twilight' 
+"Plugin 'twilight256.vim' 
+"Plugin 'jellybeans.vim' 
+"Plugin 'Solarized' 
+"Plugin 'badwolf' 
+"Plugin 'molokai' 
+Plugin 'flazz/vim-colorschemes'
+Plugin 'felixhummel/setcolors.vim'
+
 "display C functions in brackets on statusline
 Plugin 'cfname'
 "Plugin 'taglist.vim'
-
-"Mappings Collide with other plugins
-"Plugin 'bash-support.vim' 
 
 "Plugin 'proc.vim' "Use custom proc.vim instead (installed in ~/.vim/syntax)
 
@@ -91,6 +107,7 @@ Plugin 'cfname'
 "-- plugin on GitHub repo:
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-vinegar'
+"Plugin 'tpope/vim-sensible'
 "-- plugin from http://vim-scripts.org/vim/scripts.html:
 "Plugin 'L9'
 "-- Git plugin not hosted on GitHub:
@@ -121,7 +138,11 @@ filetype plugin indent on    " required
 "============================================================================
 " Post-Plugin configurations:
 "============================================================================
-call ucompleteme#Setup()
+"call ucompleteme#Setup()
+
+" bash-support.vim plugin settings:
+"let g:BASH_AlsoBash = [ '*.ksh' ]
+
 "[Enable Nmap command for documented mappings w/o plugin manager]
 "runtime plugin/documap.vim
 "============================================================================
@@ -265,7 +286,13 @@ highlight Comment term=bold ctermfg=white
 " defaults, use: > :syntax on
 :syntax enable
 
-:color ron
+":color ron
+:colo devbox-dark-256
+:color darkburn
+":source ~/.vim/bundle/setcolors.vim/plugin/setcolors.vim
+"let nowcolors = 'breeze earth less aqua gothic'
+":SetColors all
+":SetColors now
 
 "When a bracket is inserted, briefly jump to the matching one.  The
 "jump is only done if the match can be seen on the screen.  The time to
@@ -288,7 +315,7 @@ highlight Comment term=bold ctermfg=white
 " allow backspacing over everything in insert mode
 :set backspace=indent,eol,start
 
-:set history=500	 " keep # of lines of Vim command line history
+:set history=1000	 " keep # of lines of Vim command line history
 :set ruler		     " show the cursor position all the time
 :set showcmd		   " display incomplete commands
 :set showmode      " show the current mode

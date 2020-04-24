@@ -41,7 +41,7 @@ alias mapinfo=$(which gc_mapinfo.sh)
 if [ -f /usr/local/conv/etc/env_setup.sh ]; then
 	. /usr/local/conv/etc/env_setup.sh 
 
-	# Default conversion setup:
+	# MODIFY Default conversion setup:
 
 	#export TMPDIR=/tmp
 	#export CONVSHR=/conv/share
@@ -158,7 +158,7 @@ shopt -u checkwinsize #Checks the window size after each command and, if it has 
 shopt -s extglob #Bash provides a further set of pattern matching operators if the shopt option extglob is switched on.
 shopt -s cdspell
 shopt -s dirspell
-#shopt -s autocd
+shopt -s autocd
 shopt -s failglob
 shopt -s histappend
 shopt -s hostcomplete
@@ -166,7 +166,8 @@ shopt -s promptvars
 shopt -s shift_verbose
 shopt -s sourcepath
 shopt -s checkjobs
-shopt -s huponexit
+shopt -u huponexit
+shopt -s execfail
 shopt -s globstar
 shopt -s histverify
 shopt -s checkhash
@@ -177,25 +178,30 @@ shopt -s checkhash
 # Default user .profile file (/usr/bin/sh initialization).
 export TERM=linux
 
-# @(#)B.11.31_LR       
-# Set up the terminal:
-if [ "$TERM" = "" ]
-then
-	eval ` tset -s -Q -m ':?hp' `
-else
-	eval ` tset -s -Q `
+if [[ $- = *i* ]]; then
+	# @(#)B.11.31_LR       
+	# Set up the terminal:
+	if [ "$TERM" = "" ]
+	then
+		eval ` tset -s -Q -m ':?hp' `
+	else
+		eval ` tset -s -Q `
+	fi
+	#tabs
+	#stty >/dev/null
+	#if [[ $? -eq 0 ]];then
+	stty erase "^H" kill "^U" intr "^C" eof "^D"
+	stty werase "^W" quit "^\\" susp "^Z" rprnt "^R"
+	stty hupcl ixon ixoff
 fi
-#tabs
-#stty >/dev/null
-#if [[ $? -eq 0 ]];then
-stty erase "^H" kill "^U" intr "^C" eof "^D"
-stty werase "^W" quit "^\\" susp "^Z" rprnt "^R"
-stty hupcl ixon ixoff
-#fi
 
 ##############################
 # Interactive Shell Functions
 ##############################
+ses()
+{
+	se CHANGE_STATUS -s SUCCESS -j $1
+}
 gits()
 {
 	git status
@@ -223,8 +229,9 @@ build()
 	else
 		progname=$(basename $PWD)
 	fi
-	#curl -u $USER http://usolglkxks059:8080/jenkins/job/mgd_member/build?token=TOKEN
-	curl -u $LOGNAME http://$GOGS_HOST:$GOGS_PORT/jenkins/job/$progname/build?token=TOKEN
+	#wget --user=$LOGNAME http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN
+	curl -u $LOGNAME "http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN"
+
 	#GOGS_HOME=/usr/local/conv/opt/gogs
 	#GOGS_HOST=localhost
 	#GOGS_PORT=8080
@@ -298,7 +305,7 @@ f()
 }
 cdl()
 {
-	cd "$@" && ls -ltr 
+	cd "$@" && ls -l
 	#List files after cd 
 	#if [ "$#" = 0 ]; then
 	#	cd ~ && ls -ltr 
@@ -308,7 +315,7 @@ cdl()
 	##	echo "$@" directory not found!!!
 	#fi
 }
-#alias cd="cdl"
+alias cd="cdl"
 
 
 ##############################
@@ -397,9 +404,10 @@ alias mybg='echo "40=black; 41=red; 42=green; 43=brown; 44=blue; 45=purple; 46=c
 #####################################
 # Customize shell prompts
 #####################################
+#$(ls -1 | wc -l) files $(du -hs 2>/dev/null | cut -f1)
 export PS1='\n$(if [[ $? = "0" ]]; then echo "\[\033[32m\]"; else echo "\[\033[31m\]"; fi)[\#]-(\!)-(\j)-(\D{%a %m/%d/%Y %r %Z})\[\e[0m\]
 \[\033[0;33m\][\h][\u{$(contexthelper)}:\w]\[\033[0m\]
-$(ls -1 | wc -l) files $(du -hs 2>/dev/null | cut -f1)
+$(ls -1 | wc -l) files
 \$ '
 export PROMPT_COMMAND='echo -ne "\033]0;$(hostname)(${USER}@$(contexthelper)):$(pwd)\007"'
 export PS2='> ' 
@@ -433,6 +441,11 @@ alias myotto='. /home/montijo/bin/my_otto'
 export INTERACTIVE=no
 if [[ $- = *i* ]]; then
 	export INTERACTIVE=yes
+	
+	#Safer/verbose removing, moving, copying
+	alias rm="rm -iv"
+	alias mv="mv -iv"
+	alias cp="cp -iv"
 
 	echo "Running $SHELL"
 	#y      Allow write access to your terminal.
@@ -473,4 +486,5 @@ if [[ $- = *i* ]]; then
 	#if [ $? -eq 0 ]; then
 	#	exit
 	#fi
+	shopt
 fi 
