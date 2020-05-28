@@ -18,20 +18,20 @@ export SHELL=$(which bash)
 # User specific vars
 ##############################
 export CARLOS=/home/montijo
-export DSKS=~/develop/dsks
+export DSKS=$CARLOS/develop/dsks
 export JIL=$DSKS/jil
-export DSNV=~/develop/dsnv
-export DSDE=/home/montijo/develop/dsde
-export email="carlos.emi.montijo@dxc.com"
+export DSNV=$CARLOS/develop/dsnv
+export DSDE=$CARLOS/develop/dsde
+export email=$(cat ~/.forward)
 
 ##############################
-# Begin Conversion/Gencode Stuff
+# Begin Conversion Stuff
 ##############################
 #export templatedir=/usr/local/conv/gencode2/templates.DLH
 export CONV=/usr/local/conv
 
-alias dsnv="cd ~/develop/dsnv;cl"
-alias dsks="cd ~/develop/dsks;cl"
+alias dsnv="cd $DSNV; cl"
+alias dsks="cd $DSKS; cl"
 
 #mapping script shortcut
 alias mapinfo=$(which gc_mapinfo.sh)
@@ -92,13 +92,16 @@ export TMOUT=0
 # Set up where to look for terminfo files
 #export TERMINFO=$HOME/bin/terminfo
 
-#make vi refer to vanilla vi
-#unalias vi
-
 #alias su='/opt/utils/5bin/su -'
 #alias su='sudo su -'
 
 #alias ls='ls -CF --color=auto'
+
+##############################
+# Vim Setup
+##############################
+#make vi refer to vanilla vi
+#unalias vi
 
 #unsets initial vimrc config in env_setup.sh to use my ~/.vimrc file instead
 unset VIMINIT
@@ -111,9 +114,9 @@ export VISUAL=$(which vim)
 #export EDITOR="$VISUAL"
 
 #Activate personal .vimrc when logged in as group user
-export MYVIMRC=/home/montijo/.vimrc
-export runvim=$(which vim)
 #export VIMRUNTIME=/usr/local/share/vim/vim74/
+export MYVIMRC=$CARLOS/.vimrc
+export runvim=$(which vim)
 vim()
 {
 	$runvim -u $MYVIMRC $@
@@ -130,7 +133,7 @@ alias vir="vim -R -i NONE"
 #	Please edit .profile according to your site requirements.
 
 # Set up the search paths:
-PATH=$HOME/bin:$PATH
+PATH=$PATH:$HOME/bin
 PATH=$PATH:$HOME/.vim/bundle/vim-superman/bin
 
 # RUN EXECUTABLES IN '.' FIRST:
@@ -234,11 +237,6 @@ build()
 	#wget --user=$LOGNAME http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN
 	curl -u $LOGNAME "http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN"
 
-	#GOGS_HOME=/usr/local/conv/opt/gogs
-	#GOGS_HOST=localhost
-	#GOGS_PORT=8080
-	#GOGS_USER=dsksconv
-	#GOGS_ORG=conversion
 	#GOGS_SERVER=`hostname -I | tr -d " "`
 }
 timef()
@@ -319,11 +317,10 @@ cdl()
 }
 alias cd="cdl"
 
-
 ##############################
 # ALIASES
 ##############################
-alias cl="clear;l -rt"
+alias cl="clear; l -rt"
 alias cd1="cd .."
 alias cd2="cd ../.."
 alias cd3="cd ../../.."
@@ -402,7 +399,6 @@ alias mynon='echo "\033[m"'
 alias mycolors='echo "30=black; 31=red; 32=green; 33=brown; 34=blue; 35=purple; 36=cyan; 37=ltgray; see mybg"'
 alias mybg='echo "40=black; 41=red; 42=green; 43=brown; 44=blue; 45=purple; 46=cyan; 47=ltgray; non=no number"'
 
-
 #####################################
 # Customize shell prompts
 #####################################
@@ -415,7 +411,6 @@ export PROMPT_COMMAND='echo -ne "\033]0;$(hostname)(${USER}@$(contexthelper)):$(
 export PS2='> ' 
 export PS3='#? '
 export PS4='+ ' 
-
 
 #####################################
 # Autosys / otto
@@ -443,7 +438,7 @@ alias myotto='. /home/montijo/bin/my_otto'
 export INTERACTIVE=no
 if [[ $- = *i* ]]; then
 	export INTERACTIVE=yes
-	
+
 	#Safer/verbose removing, moving, copying
 	alias rm="rm -iv"
 	alias mv="mv -iv"
