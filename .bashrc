@@ -30,8 +30,9 @@ export email=$(cat ~/.forward)
 #export templatedir=/usr/local/conv/gencode2/templates.DLH
 export CONV=/usr/local/conv
 
-alias dsnv="cd $DSNV; cl"
 alias dsks="cd $DSKS; cl"
+alias dsnv="cd $DSNV; cl"
+alias dsde="cd $DSDE; cl"
 
 #mapping script shortcut
 alias mapinfo=$(which gc_mapinfo.sh)
