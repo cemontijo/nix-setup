@@ -130,8 +130,7 @@ alias vir="vim -R -i NONE"
 #	Please edit .profile according to your site requirements.
 
 # Set up the search paths:
-PATH=$HOME/develop/$CUST/ubin:$HOME/bin:$PATH
-
+PATH=$HOME/bin:$PATH
 PATH=$PATH:$HOME/.vim/bundle/vim-superman/bin
 
 # RUN EXECUTABLES IN '.' FIRST:
