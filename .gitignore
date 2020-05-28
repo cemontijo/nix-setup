@@ -62,3 +62,4 @@ develop/**
 *.zip
 tmp/
 sample.vimrc
+helptips.txt

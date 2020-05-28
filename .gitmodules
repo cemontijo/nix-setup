@@ -19,3 +19,6 @@
 [submodule "VundleVim/Vundle.vim"]
 	path = .vim/bundle/Vundle.vim
 	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "jez/vim-superman"]
+	path = .vim/bundle/vim-superman
+	url = https://github.com/jez/vim-superman.git

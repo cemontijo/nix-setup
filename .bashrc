@@ -22,6 +22,7 @@ export DSKS=~/develop/dsks
 export JIL=$DSKS/jil
 export DSNV=~/develop/dsnv
 export DSDE=/home/montijo/develop/dsde
+export email="carlos.emi.montijo@dxc.com"
 
 ##############################
 # Begin Conversion/Gencode Stuff
@@ -130,6 +131,8 @@ alias vir="vim -R -i NONE"
 
 # Set up the search paths:
 PATH=$HOME/develop/$CUST/ubin:$HOME/bin:$PATH
+
+PATH=$PATH:$HOME/.vim/bundle/vim-superman/bin
 
 # RUN EXECUTABLES IN '.' FIRST:
 PATH=.:$PATH
@@ -486,5 +489,8 @@ if [[ $- = *i* ]]; then
 	#if [ $? -eq 0 ]; then
 	#	exit
 	#fi
-	shopt
+
+	#shopt
+	tfaljilchk
+
 fi 
