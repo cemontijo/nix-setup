@@ -291,6 +291,7 @@ highlight Comment term=bold ctermfg=white
 ":color ron
 :colo devbox-dark-256
 :color darkburn
+
 ":source ~/.vim/bundle/setcolors.vim/plugin/setcolors.vim
 "let nowcolors = 'breeze earth less aqua gothic'
 ":SetColors all

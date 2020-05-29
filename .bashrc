@@ -9,6 +9,7 @@ trap "echo '$USER ($LOGNAME) logged out to $SHELL'" 0
 
 # Source system global definitions
 if [ -f /etc/bashrc ]; then
+	df /etc
 	. /etc/bashrc
 fi
 
@@ -17,7 +18,8 @@ export SHELL=$(which bash)
 ##############################
 # User specific vars
 ##############################
-export CARLOS=/home/montijo
+#export CARLOS=/home/montijo
+export CARLOS=~
 export DSKS=$CARLOS/develop/dsks
 export JIL=$DSKS/jil
 export DSNV=$CARLOS/develop/dsnv
@@ -35,7 +37,7 @@ alias dsnv="cd $DSNV; cl"
 alias dsde="cd $DSDE; cl"
 
 #mapping script shortcut
-alias mapinfo=$(which gc_mapinfo.sh)
+alias mapinfo=$(which gc_mapinfo.sh 2>/dev/null)
 
 ##############################
 # Activate default conversion setup
@@ -97,6 +99,10 @@ export TMOUT=0
 #alias su='sudo su -'
 
 #alias ls='ls -CF --color=auto'
+
+MAIL=${MAIL:-xxx}
+REPOSDIR=${MAIL:-xxx}
+CUST=${CUST:-xxx}
 
 ##############################
 # Vim Setup
@@ -182,24 +188,25 @@ shopt -s checkhash
 #export LANG=en_US
 
 # Default user .profile file (/usr/bin/sh initialization).
-export TERM=linux
+#export TERM=linux
+#export TERM=xterm # Windows
 
-if [[ $- = *i* ]]; then
-	# @(#)B.11.31_LR       
-	# Set up the terminal:
-	if [ "$TERM" = "" ]
-	then
-		eval ` tset -s -Q -m ':?hp' `
-	else
-		eval ` tset -s -Q `
-	fi
-	#tabs
-	#stty >/dev/null
-	#if [[ $? -eq 0 ]];then
-	stty erase "^H" kill "^U" intr "^C" eof "^D"
-	stty werase "^W" quit "^\\" susp "^Z" rprnt "^R"
-	stty hupcl ixon ixoff
-fi
+#if [[ $- = *i* ]]; then
+#	# @(#)B.11.31_LR       
+#	# Set up the terminal:
+#	if [ "$TERM" = "" ]
+#	then
+#		eval ` tset -s -Q -m ':?hp' `
+#	else
+#		eval ` tset -s -Q `
+#	fi
+#	#tabs
+#	#stty >/dev/null
+#	#if [[ $? -eq 0 ]];then
+#	stty erase "^H" kill "^U" intr "^C" eof "^D"
+#	stty werase "^W" quit "^\\" susp "^Z" rprnt "^R"
+#	stty hupcl ixon ixoff
+#fi
 
 ##############################
 # Interactive Shell Functions
@@ -244,7 +251,7 @@ timef()
 {
 	/usr/bin/time -f "Command: %C\nElapsed Time = %E\nUser %U\nSys %S\nCPU %P, Inputs %I, Outputs %O" $@
 }
-alias time="$(which time)"
+alias time="$(which time 2>/dev/null)"
 
 grepdrop()
 {
@@ -448,7 +455,7 @@ if [[ $- = *i* ]]; then
 	echo "Running $SHELL"
 	#y      Allow write access to your terminal.
 	#n      Disallow write access to your terminal.
-	mesg y
+	#mesg y
 
 	#UNIX
 	#echo "\033[36m"
@@ -475,7 +482,7 @@ if [[ $- = *i* ]]; then
 	export CDPATH=".:$HOME/develop:$HOME/develop/$CUST:$CONVSHR:$CONVDIR:.."
 
 	#ottocheck
-	svccheck
+	svccheck 2>/dev/null
 	#if [ -f $HOME/bin/wintitle ]; then
 	#	$HOME/bin/wintitle "$CUST"
 	#fi
@@ -486,6 +493,5 @@ if [[ $- = *i* ]]; then
 	#fi
 
 	#shopt
-	tfaljilchk
-
+	tfaljilchk 2>/dev/null
 fi 

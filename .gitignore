@@ -63,3 +63,52 @@ develop/**
 tmp/
 sample.vimrc
 helptips.txt
+
+# Windows
+.anaconda/
+.android/
+.atom/
+.conda/
+.condarc
+.cordova/
+.dotnet/
+.ghidra/
+.mume/
+.vscode/
+3D Objects/
+AppData/
+Contacts/
+DXC Production/
+Desktop/
+Documents/
+Downloads/
+Favorites/
+IntelGraphicsProfiles/
+Links/
+MicrosoftEdgeBackups/
+Music/
+NTUSER*
+OneDrive*/
+Oracle/
+Pictures/
+Saved Games/
+Searches/
+Setup OneDrive.lnk
+TEST.gpr
+TEST.rep/
+Videos/
+nix-setup/
+ntuser*
+source/
+
+# Win folders
+Application Data/
+Cookies/
+Local Settings/
+My Documents/
+NetHood/
+PrintHood/
+Recent/
+SendTo/
+Start Menu/
+Templates/
