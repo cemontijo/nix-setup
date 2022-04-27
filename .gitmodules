@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/Damian-Conway-s-Vim-Setup"]
 	path = .vim/bundle/Damian-Conway-s-Vim-Setup
 	url = https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup
+[submodule ".vim/bundle/cfname"]
+	path = .vim/bundle/cfname
+	url = https://github.com/vim-scripts/cfname.git
