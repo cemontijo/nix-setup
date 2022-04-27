@@ -217,6 +217,8 @@ ses()
 {
 	se CHANGE_STATUS -s SUCCESS -j $1
 }
+#NOTE: Use the command below to prevent override of local commits to submodules!
+#$ git submodule update --remote --merge
 gitb()
 {
 	git branch -va
