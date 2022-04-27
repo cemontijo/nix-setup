@@ -28,13 +28,19 @@ endif
 unlet! s:netrw_up
 
 nnoremap <silent> <Plug>VinegarUp :call <SID>opendir('edit')<CR>
-if empty(maparg('-', 'n'))
+if empty(maparg('-', 'n')) && !hasmapto('<Plug>VinegarUp')
   nmap - <Plug>VinegarUp
 endif
 
 nnoremap <silent> <Plug>VinegarTabUp :call <SID>opendir('tabedit')<CR>
 nnoremap <silent> <Plug>VinegarSplitUp :call <SID>opendir('split')<CR>
 nnoremap <silent> <Plug>VinegarVerticalSplitUp :call <SID>opendir('vsplit')<CR>
+
+function! s:sort_sequence(suffixes) abort
+  return '[\/]$,*' . (empty(a:suffixes) ? '' : ',\%(' .
+        \ join(map(split(a:suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$')
+endfunction
+let g:netrw_sort_sequence = s:sort_sequence(&suffixes)
 
 function! s:opendir(cmd) abort
   let df = ','.s:dotfiles
@@ -48,7 +54,7 @@ function! s:opendir(cmd) abort
   elseif expand('%') =~# '^$\|^term:[\/][\/]'
     execute a:cmd '.'
   else
-    execute a:cmd '%:h'
+    execute a:cmd '%:h' . (expand('%:p') =~# '^\a\a\+:' ? s:slash() : '')
     call s:seek(expand('#:t'))
   endif
 endfunction
@@ -66,6 +72,12 @@ endfunction
 augroup vinegar
   autocmd!
   autocmd FileType netrw call s:setup_vinegar()
+  if exists('##OptionSet')
+    autocmd OptionSet suffixes
+          \ if s:sort_sequence(v:option_old) ==# get(g:, 'netrw_sort_sequence') |
+          \   let g:netrw_sort_sequence = s:sort_sequence(v:option_new) |
+          \ endif
+  endif
 augroup END
 
 function! s:slash() abort
@@ -96,11 +108,12 @@ function! s:escaped(first, last) abort
   let files = s:relatives(a:first, a:last)
   return join(map(files, 's:fnameescape(v:val)'), ' ')
 endfunction
+" 97f3fbc9596f3997ebf8e30bfdd00ebb34597722
 
 function! s:setup_vinegar() abort
   if !exists('s:netrw_up')
     let orig = maparg('-', 'n')
-    if orig =~? '^<plug>'
+    if orig =~? '^<plug>' && orig !=# '<Plug>VinegarUp'
       let s:netrw_up = 'execute "normal \'.substitute(orig, ' *$', '', '').'"'
     elseif orig =~# '^:'
       " :exe "norm! 0"|call netrw#LocalBrowseCheck(<SNR>123_NetrwBrowseChgDir(1,'../'))<CR>
@@ -122,8 +135,6 @@ function! s:setup_vinegar() abort
   endif
   nmap <buffer> ! .!
   xmap <buffer> ! .!
-  let g:netrw_sort_sequence = '[\/]$,*' . (empty(&suffixes) ? '' : ',\%(' .
-        \ join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$')
   exe 'syn match netrwSuffixes =\%(\S\+ \)*\S\+\%('.join(map(split(&suffixes, ','), s:escape), '\|') . '\)[*@]\=\S\@!='
   hi def link netrwSuffixes SpecialKey
 endfunction

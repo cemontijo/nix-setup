@@ -14,6 +14,8 @@ fi
 
 export SHELL=$(which bash)
 
+#TODO: Create mv function that ALSO moves the vim backup file
+
 ##############################
 # User specific vars
 ##############################
@@ -177,12 +179,15 @@ shopt -s execfail
 shopt -s globstar
 shopt -s histverify
 shopt -s checkhash
+shopt -s cdable_vars
+
 
 # Set up the built-in shell variables:
 #export LANG=en_US
 
 # Default user .profile file (/usr/bin/sh initialization).
 export TERM=linux
+export COLUMNS=500
 
 if [[ $- = *i* ]]; then
 	# @(#)B.11.31_LR       
@@ -204,9 +209,17 @@ fi
 ##############################
 # Interactive Shell Functions
 ##############################
+#du()
+#{
+#	du -h $* | sort -h
+#}
 ses()
 {
 	se CHANGE_STATUS -s SUCCESS -j $1
+}
+gitb()
+{
+	git branch -va
 }
 gits()
 {
@@ -228,18 +241,18 @@ gitbu()
 {
 	git branch --set-upstream-to=origin/master master
 }
-build()
-{
-	if [ $# = 1 ]; then
-		progname=$1
-	else
-		progname=$(basename $PWD)
-	fi
-	#wget --user=$LOGNAME http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN
-	curl -u $LOGNAME "http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN"
-
-	#GOGS_SERVER=`hostname -I | tr -d " "`
-}
+#build()
+#{
+#	if [ $# = 1 ]; then
+#		progname=$1
+#	else
+#		progname=$(basename $PWD)
+#	fi
+#	#wget --user=$LOGNAME http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN
+#	curl -u $LOGNAME "http://$GITEA_HOST:$GITEA_PORT/jenkins/job/$progname/build?token=TOKEN"
+#
+#	#GOGS_SERVER=`hostname -I | tr -d " "`
+#}
 timef()
 {
 	/usr/bin/time -f "Command: %C\nElapsed Time = %E\nUser %U\nSys %S\nCPU %P, Inputs %I, Outputs %O" $@
@@ -280,7 +293,7 @@ myps()
 {
 	#alias myps="ps -ef | grep $ME"
 	#alias myps="ps -efl | head -1; ps -efl | grep $ME"
-	ps -eaf | grep -E '$USER|PID' | sort -nk5
+	ps -eaf | grep -E "$USER|PID" | sort -nk5
 }
 f()
 {
@@ -321,19 +334,24 @@ alias cd="cdl"
 ##############################
 # ALIASES
 ##############################
-alias cl="clear; l -rt"
+alias cl="clear; ls -l"
 alias cd1="cd .."
 alias cd2="cd ../.."
 alias cd3="cd ../../.."
 alias cd4="cd ../../../.."
 alias cd5="cd ../../../../.."
-alias binsql='. set_binsql_outsdir; binsql -p -w -l 30 $BINSQL_OUTSDIR'
+#export BINSQL_OUTSDIR="$CONVDIR/source_files/outs"
+#alias binsql='. set_binsql_outsdir; binsql -p -w -l 30 $BINSQL_OUTSDIR'
+alias binsql='binsql -p -w -l 30 -d $CONVDIR/source_files/data/AIM -o $CONVDIR/source_files/outs/AIM'
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
-alias l="ls -l"
+#alias ls='ls -ltrp --color --time-style=+%F_%T '
+alias ls='ls -CF --color --time-style="+%F %T"'
+alias l="ls -lh"
 alias ll="ls -la"
 alias lt="ls -ltr"
 alias l.="ls -ld .*"
 alias grep="grep --color"
+alias lmgd="l $DSKS/mgd* -d"
 
 #Permisssions
 alias open="umask 007"
@@ -448,7 +466,7 @@ if [[ $- = *i* ]]; then
 	echo "Running $SHELL"
 	#y      Allow write access to your terminal.
 	#n      Disallow write access to your terminal.
-	mesg y
+	#mesg y
 
 	#UNIX
 	#echo "\033[36m"
@@ -486,6 +504,8 @@ if [[ $- = *i* ]]; then
 	#fi
 
 	#shopt
+	echo
+	echo "TFAL Jobs:"
 	tfaljilchk
 
 fi 

@@ -1,24 +1,27 @@
-[submodule "thoughtstream/Damian-Conway-s-Vim-Setup"]
-	path = .vim/bundle/Damian-Conway-s-Vim-Setup
-	url = https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup
 [submodule "cfname"]
 	path = .vim/bundle/cfname
 	url = https://github.com/vim-scripts/cfname.git
-[submodule "ucompleteme"]
-	path = .vim/bundle/ucompleteme
-	url = https://github.com/vim-scripts/ucompleteme.git
-[submodule "tpope/vim-fugitive"]
-	path = .vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "google/vim-searchindex"]
-	path = .vim/bundle/vim-searchindex
-	url = https://github.com/google/vim-searchindex.git
-[submodule "tpope/vim-vinegar"]
-	path = .vim/bundle/vim-vinegar
-	url = https://github.com/tpope/vim-vinegar.git
-[submodule "VundleVim/Vundle.vim"]
-	path = .vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule "jez/vim-superman"]
 	path = .vim/bundle/vim-superman
 	url = https://github.com/jez/vim-superman.git
+[submodule "bash-support"]
+	path = .vim/bundle/bash-support.vim
+	url = https://github.com/vim-scripts/bash-support.vim.git
+[submodule "gruvbox"]
+	path = .vim/bundle/gruvbox
+	url = https://github.com/vim-scripts/gruvbox.git
+[submodule "setcolors"]
+	path = .vim/bundle/setcolors.vim
+	url = https://github.com/felixhummel/setcolors.vim.git
+[submodule "vim-colorschemes"]
+	path = .vim/bundle/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
+[submodule ".vim/bundle/LargeFile"]
+	path = .vim/bundle/LargeFile
+	url = https://github.com/vim-scripts/LargeFile.git
+[submodule ".vim/bundle/vim-json-line-format"]
+	path = .vim/bundle/vim-json-line-format
+	url = https://github.com/axiaoxin/vim-json-line-format.git
+[submodule ".vim/bundle/vim-json"]
+	path = .vim/bundle/vim-json
+	url = https://github.com/elzr/vim-json.git

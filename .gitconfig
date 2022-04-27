@@ -1,0 +1,8 @@
+[core]
+	symlinks = true
+[user]
+	#email = carlos.emi.montijo@dxc.com
+	email = cemontijo@users.noreply.github.com
+	name = Carlos E. Montijo
+[status]
+	submoduleSummary = true

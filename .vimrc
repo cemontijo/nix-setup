@@ -41,6 +41,7 @@ if $USER == $PRIVILEGED_USER
 endif
 ":set runtimepath+=~/.vim/plugin
 
+
 "============================================================================
 "Plugin Managers
 "Vundle downloads/updates plugins from GitHub/online
@@ -59,6 +60,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'LargeFile'
+
 "=====[ Enable Nmap command for documented mappings ]================
 "https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/plugin/documap.vim
 Plugin 'thoughtstream/Damian-Conway-s-Vim-Setup', {'rtp': 'plugin/'}
@@ -74,7 +77,8 @@ Plugin 'google/vim-searchindex'
 "Plugin 'netrw' "Fix broken netrw installed on server
 
 "Plugin 'elzr/vim-json'
-"Plugin 'vim-json-master'
+Plugin 'axiaoxin/vim-json-line-format'
+"Plugin 'vim-json-master' doesn't work
 
 "Requires cscope installed on server, and Vim must have it turned on
 "Plugin 'cscope-maps'
@@ -147,6 +151,9 @@ filetype plugin indent on    " required
 
 "[Enable Nmap command for documented mappings w/o plugin manager]
 "runtime plugin/documap.vim
+
+" Set LargeFile size in MB
+"let g:LargeFile=100
 "============================================================================
 
 "if has('cscope')
@@ -288,9 +295,13 @@ highlight Comment term=bold ctermfg=white
 " defaults, use: > :syntax on
 :syntax enable
 
-":color ron
 :colo devbox-dark-256
 :color darkburn
+:color industry
+":colo devbox-dark-256
+":color darkburn
+
+":color ron
 ":source ~/.vim/bundle/setcolors.vim/plugin/setcolors.vim
 "let nowcolors = 'breeze earth less aqua gothic'
 ":SetColors all
@@ -384,6 +395,8 @@ if has("autocmd")
 		autocmd BufRead,BufNewFile *.ctl  set filetype=conf
 		autocmd BufRead,BufNewFile *.jil  set filetype=conf
 		autocmd BufNewFile,BufRead *.patch set filetype=diff
+		autocmd BufNewFile,BufRead *.preamble,*.postamble set filetype=xml
+		autocmd BufNewFile,BufRead *.module set filetype=sh
 
 		"au BufRead,BufNewFile,BufEnter *.sc CFunEnablestatusinfo "DOESN'T WORK
 
@@ -522,6 +535,9 @@ vmap <expr> M ':s/' . @/ . '//gn<LEFT><LEFT>'
 ":map <F9> :sp ~/.vimrc<CR>
 command! Vimrc :vs $MYVIMRC
 
+"Re-Map ESC key in Insert Mode
+inoremap jh <Esc>
+
 "Define some nice abbreviations: 
 :ab #d #define
 :ab #i #include
@@ -530,9 +546,15 @@ command! Vimrc :vs $MYVIMRC
 :ab #e ^V^H*****************************************/
 :ab #l /*------------------------------------------------------*/
 
+set scrolloff=10       " keep 20 lines visible above and below cursor at all times                                                                        
+set sidescrolloff=40   " keep 30 columns visible left and right of the cursor at all times
+
 "============================================================================
 " Vim command notes
 "============================================================================
+" replace old with NEW within the last selected block:
+" :%s/\%Vold/NEW/g
+"
 "Autocomplete
 "Completing file names					*compl-filename*
 "							*i_CTRL-X_CTRL-F*
