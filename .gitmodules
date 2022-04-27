@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/cfname"]
 	path = .vim/bundle/cfname
 	url = https://github.com/vim-scripts/cfname.git
+[submodule ".vim/bundle/vim-searchindex"]
+	path = .vim/bundle/vim-searchindex
+	url = https://github.com/google/vim-searchindex.git
