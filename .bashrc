@@ -59,7 +59,7 @@ if [ -f /usr/local/conv/etc/env_setup.sh ]; then
 	#export HISTCONTROL=""
 
 	## ksh command line editor
-	#export EDITOR=vi
+	export EDITOR=vim
 
 	#export USER=$(whoami)
 	#export LOGNAME=$(logname)
@@ -138,6 +138,9 @@ alias vir="vim -R -i NONE"
 # Set up the search paths:
 PATH=$PATH:$HOME/bin
 PATH=$PATH:$HOME/.vim/bundle/vim-superman/bin
+
+# Add to your ~/.bashrc to get tab completion
+complete -o default -o nospace -F _man vman
 
 # RUN EXECUTABLES IN '.' FIRST:
 PATH=.:$PATH

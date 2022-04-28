@@ -125,6 +125,7 @@ Plugin 'tpope/vim-vinegar'
 "   different version somewhere else:
 "Plugin 'ascenator/L9', {'name': 'newL9'}
 
+" NOTE: Requires setting $EDITOR to vim
 Plugin 'jez/vim-superman'
 
 " All of your Plugins must be added before the following line
