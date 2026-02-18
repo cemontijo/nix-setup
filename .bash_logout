@@ -6,6 +6,7 @@
 
 USER=$(whoami)
 
+unalias cd
 cd /tmp
 
 printf "You own the following files/directories in /tmp:\n"

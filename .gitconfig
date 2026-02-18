@@ -5,3 +5,34 @@
 	name = Carlos E. Montijo
 [status]
 	submoduleSummary = true
+[safe]
+	directory = /var/conv/src/ip-dc-gencode
+	directory = /var/conv/src/ip-dc-libcnvdate
+	directory = /var/conv/src/ip-dc-gencode
+	directory = /var/conv/src/ip-dc-libcnvstd
+	directory = /var/conv/ctx/dev/develop/cmontijo/dev/ip-dc-gencode
+	directory = /var/conv/src/ip-dc-libcnvsort
+	directory = /var/conv/src/ip-dc-libcnvsort
+	directory = /var/conv/src/ip-dc-libcnvcalc
+	directory = /var/conv/src/ip-dc-libcnvcalc
+	directory = /var/conv/contexts/dev/develop/cmontijo/dev/ip-dc-pre-install
+	directory = /var/conv/contexts/dev/develop/cmontijo/dev/ip-dc-pre-install
+	directory = /var/conv/contexts/stage/build/prv_main
+	directory = /var/conv/contexts/stage/build/pau_main
+	directory = /var/conv/contexts/prod/build/mbr_main
+	directory = /var/conv/contexts/stage/build/clm_main
+	directory = /var/conv/contexts/stage/build/prv_lookup
+	directory = /var/conv/contexts/prod/build/prv_lookup
+	directory = /var/conv/contexts/stage/build/etc
+	directory = /var/conv/contexts/stage/build/mbr_main
+	directory = /var/conv/contexts/stage/build/mbr_main
+	directory = /var/conv/contexts/stage/build/mbr_main
+	directory = /var/conv/contexts/prod/build/prv_main
+	directory = /home/conv/develop/ip-dc/ip-dc-dsv2xls
+	directory = /home/conv/develop/ip-dc/ip-dc-libDOparser
+	directory = /var/conv/homes/conv/develop/ip-dc/ip-dc-odbctools
+	directory = /home/pam.dhowell23/src/Otto
+	directory = /var/conv/homes/pam.dhowell23/src/Otto
+	directory = /home/conv/develop/ip-dc/ip-dc-libcnvcore
+	directory = /var/conv/homes/conv/develop/ip-dc/ip-dc-libcnvcore
+	directory = /var/conv/homes/conv/develop/ip-dc/ip-dc-dsv2xls

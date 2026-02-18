@@ -1,15 +1,15 @@
-if [ "${BASEDIR:-xxx}" = "xxx" ]; then BASEDIR=..;export BASEDIR; fi
-if [ "${DATADIR:-xxx}" = "xxx" ]; then DATADIR=../data;export DATADIR; fi
-if [ "${LOGSDIR:-xxx}" = "xxx" ]; then LOGSDIR=../logs;export LOGSDIR; fi
-if [ "${OUTSDIR:-xxx}" = "xxx" ]; then OUTSDIR=../outs;export OUTSDIR; fi
-if [ "${RPTDIR:-xxx}"  = "xxx" ]; then RPTDIR=../rpt;export RPTDIR; fi
-if [ "${SQLDIR:-xxx}"  = "xxx" ]; then SQLDIR=../sql;export SQLDIR; fi
-if [ "${SRCDIR:-xxx}"  = "xxx" ]; then SRCDIR=../bin;export SRCDIR; fi
-#if [ "${SYNDIR:-xxx}"  = "xxx" ]; then SYNDIR=../sysin;export SYNDIR; fi
-if [ "${SYNPATH:-xxx}"  = "xxx" ]; then SYNPATH=../sysin;export SYNPATH; fi
+if [ "${BASEDIR:-xxx}"  = "xxx" ]; then BASEDIR=..;       export BASEDIR; fi
+if [ "${DATADIR:-xxx}"  = "xxx" ]; then DATADIR=../data;  export DATADIR; fi
+if [ "${LOGSDIR:-xxx}"  = "xxx" ]; then LOGSDIR=../logs;  export LOGSDIR; fi
+if [ "${OUTSDIR:-xxx}"  = "xxx" ]; then OUTSDIR=../outs;  export OUTSDIR; fi
+if [ "${RPTDIR:-xxx}"   = "xxx" ]; then RPTDIR=../rpt;    export RPTDIR;  fi
+if [ "${SQLDIR:-xxx}"   = "xxx" ]; then SQLDIR=../sql;    export SQLDIR;  fi
+if [ "${SRCDIR:-xxx}"   = "xxx" ]; then SRCDIR=../bin;    export SRCDIR;  fi
+if [ "${SYNDIR:-xxx}"   = "xxx" ]; then SYNDIR=../sysin;  export SYNDIR;  fi
+if [ "${SYNPATH:-xxx}"  = "xxx" ]; then SYNPATH=../sysin; export SYNPATH; fi
 
 export TMPDIR=/tmp
-export CONVSHR=/conv/share
+#export CONVSHR=/conv/share
 
 # Set up the built-in shell variables:
 export HISTTIMEFORMAT="%m/%d/%Y %r %Z: "
@@ -27,17 +27,19 @@ export LOGNAME="$(logname)"
 
 # Database NLS Vars
 #export LC_ALL=C.utf8 
-export LC_ALL="C"
-export LANG="C.utf8"
-export NLS_LANG="American_America.AL32UTF8"
+#export LC_ALL="C"
+#export LANG="C.utf8"
+#export NLS_LANG="American_America.AL32UTF8"
 
-config_path=/usr/local/conv/etc/enabled-modules
-for entry in "$config_path"/*
-do
-	if [ -r $entry ] ; then
-		source $entry
-	fi
-done
+#config_path=/usr/local/conv/etc/enabled-modules
+#for entry in "$config_path"/*
+#do
+#	if [ -r $entry ] ; then
+#		source $entry
+#	else
+#		echo unreadable: $entry
+#	fi
+#done
 
 # the items below all require that CONVDIR be set.  Make sure it is set before running these commands
 if [ "${CONVDIR:=xxx}" != "xxx" ]; then
@@ -52,13 +54,57 @@ if [ "${CONVDIR:=xxx}" != "xxx" ]; then
 	fi
 
 	# Set up the search paths:
-	export PATH=/usr/local/conv/bin:$PATH:../bin:.
+	#export PATH=/usr/local/conv/bin:$PATH:../bin:.
+	export PATH=.:$PATH:../bin:$HOME/bin
 
-	export LD_LIBRARY_PATH=$CONVSHR/lib:/usr/local/conv/lib:$LD_LIBRARY_PATH
+	#export LD_LIBRARY_PATH=$CONVSHR/lib:/usr/local/conv/lib:$LD_LIBRARY_PATH
 
 	export VIMINIT='source /usr/local/conv/etc/vimrc'
 
 fi
+
+if [[ $- = *i* ]]; then
+
+	typeset -l state=$STATE
+
+	export ggrp=`id -gn | awk '{print $1}'`
+	if [ "$ggrp" != "ds${state}se" ]; then
+		newgrp - ds${state}se
+		if [ $? -eq 0 ] ; then
+			echo "code was" $?
+			exit 0
+		fi
+	fi
+fi
+
+if [[ "$USER" = "$PRIVILEGED_USER" ]] ; then
+	export CONVSHR=$PRODDIR/share
+	mkdir -p $CONVSHR
+	mkdir -p $CONVSHR/include
+	mkdir -p $CONVSHR/lib
+	mkdir -p $DATADIR
+	mkdir -p $RPTDIR
+else
+	export CONVSHR=$CONVDIR/share
+fi
+
+if [ "${SRCPATH:-xxx}" = "xxx" ]; then
+	export SRCPATH=../bin:/usr/local/conv/bin
+else
+	export SRCPATH=/usr/local/conv/bin:$SRCPATH
+fi
+
+# Set up the search paths:
+export PATH=$PATH:/usr/local/conv/bin:../bin:.:/usr/local/conv/etc
+export LD_LIBRARY_PATH=$CONVSHR/lib:/usr/local/conv/lib:/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$CONVSHR/lib:/usr/local/conv/lib:/lib:$LIBRARY_PATH
+export C_INCLUDE_PATH=$CONVSHR/include:/usr/local/conv/include:$C_INCLUDE_PATH
+
+# clean up modified paths
+export PATH=`echo -n $PATH | awk -v RS=: '{ if(length($0) > 0) {if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}}'`
+export LD_LIBRARY_PATH=`echo -n $LD_LIBRARY_PATH | awk -v RS=: '{ if(length($0) > 0) {if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}}'`
+export LIBRARY_PATH=`echo -n $LIBRARY_PATH | awk -v RS=: '{ if(length($0) > 0) {if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}}'`
+export C_INCLUDE_PATH=`echo -n $C_INCLUDE_PATH | awk -v RS=: '{ if(length($0) > 0) {if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)} }}'`
 
 # Set up a umask that will allow others in the group to freely access directories
 umask 0002
@@ -73,6 +119,10 @@ if [[ $- = *i* ]]; then
 	alias mv="mv -i"
 	alias cp="cp -i"
 
+	# clean up the PATH
+	export PATH=$(echo -n $PATH | awk -v RS=: '{ if(length($0) > 0) {if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}}')
+
+	PAGER='less -e'; export PAGER
 	echo
 	echo "CONVERSION environment variables"
 	echo "=================================================="

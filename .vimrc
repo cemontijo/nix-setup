@@ -398,6 +398,10 @@ if has("autocmd")
 		autocmd BufNewFile,BufRead *.patch set filetype=diff
 		autocmd BufNewFile,BufRead *.preamble,*.postamble set filetype=xml
 		autocmd BufNewFile,BufRead *.module set filetype=sh
+		" Set all other files to sh
+		"autocmd BufNewFile,BufRead *.module,!(*.*)\@! set filetype=sh
+		"autocmd BufNewFile,BufRead *.module,^(*.*)\@! set filetype=sh
+		"autocmd BufNewFile,BufRead *.module,* set filetype=sh
 
 		"au BufRead,BufNewFile,BufEnter *.sc CFunEnablestatusinfo "DOESN'T WORK
 
@@ -470,6 +474,8 @@ endif
 
 :set autoindent		" always set autoindenting on
 ":set cindent      " c indentation
+" Dan Howell's suggestions for indents at specific places
+set cino=t0,(0
 
 "Number of spaces that a <Tab> in the file counts for:
 :set tabstop=2
@@ -478,7 +484,7 @@ endif
 "			local to buffer
 "	Number of spaces to use for each step of (auto)indent.  Used for
 "	|'cindent'|, |>>|, |<<|, etc. When zero the 'ts' value will be used. 
-:set shiftwidth=2
+:set shiftwidth=0
 
 "Replace tabs with spaces:
 "If you want absolutely no tabs in your file, you can set the 'expandtab'
@@ -538,6 +544,8 @@ command! Vimrc :vs $MYVIMRC
 
 "Re-Map ESC key in Insert Mode
 inoremap jh <Esc>
+"inoremap jk <Esc>
+"inoremap kj <Esc>
 
 "Define some nice abbreviations: 
 :ab #d #define

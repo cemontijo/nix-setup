@@ -19,22 +19,25 @@ export SHELL=$(which bash)
 ##############################
 # User specific vars
 ##############################
-export CARLOS=/home/montijo
-export DSKS=$CARLOS/develop/dsks
-export JIL=$DSKS/jil
-export DSNV=$CARLOS/develop/dsnv
-export DSDE=$CARLOS/develop/dsde
 export email=$(cat ~/.forward)
+export CARLOS=/var/conv/homes/pam.cmontijo
+
+export DSKS=$CARLOS/dev/dsks
+alias dsks="cd $DSKS; cl"
+export DSNV=$CARLOS/dev/dsnv
+alias dsnv="cd $DSNV; cl"
+export DSDE=$CARLOS/dev/dsde
+alias dsde="cd $DSDE; cl"
+
+export devhome=/var/conv/dev/cmontijo
+alias devhome="cd $devhome; cl"
 
 ##############################
 # Begin Conversion Stuff
 ##############################
 #export templatedir=/usr/local/conv/gencode2/templates.DLH
-export CONV=/usr/local/conv
-
-alias dsks="cd $DSKS; cl"
-alias dsnv="cd $DSNV; cl"
-alias dsde="cd $DSDE; cl"
+export CONV=$CONV_HOME
+export REPOSDIR=/var/conv/devops/gitea/data/gitea-repositories/mt-conversion
 
 #mapping script shortcut
 alias mapinfo=$(which gc_mapinfo.sh)
@@ -42,8 +45,8 @@ alias mapinfo=$(which gc_mapinfo.sh)
 ##############################
 # Activate default conversion setup
 ##############################
-if [ -f /usr/local/conv/etc/env_setup.sh ]; then
-	. /usr/local/conv/etc/env_setup.sh 
+#if [ -f /usr/local/conv/etc/env_setup.sh ]; then
+#	. /usr/local/conv/etc/env_setup.sh 
 
 	# MODIFY Default conversion setup:
 
@@ -82,7 +85,7 @@ if [ -f /usr/local/conv/etc/env_setup.sh ]; then
 	#	alias mv="mv -i"
 	#	alias cp="cp -i"
 	#fi
-fi
+#fi
 
 ##############################
 # Modify Default Setup (CAUTION)
@@ -156,6 +159,7 @@ set -o ignoreeof
 set +o noclobber    
 set -o nounset       
 set -o vi
+set -o pipefail
 #set -o interactive      on
 #set -o emacs            off
 #set -o gmacs            off
@@ -183,6 +187,7 @@ shopt -s globstar
 shopt -s histverify
 shopt -s checkhash
 shopt -s cdable_vars
+shopt -s direxpand
 
 
 # Set up the built-in shell variables:
@@ -428,10 +433,10 @@ alias mybg='echo "40=black; 41=red; 42=green; 43=brown; 44=blue; 45=purple; 46=c
 #####################################
 #$(ls -1 | wc -l) files $(du -hs 2>/dev/null | cut -f1)
 export PS1='\n$(if [[ $? = "0" ]]; then echo "\[\033[32m\]"; else echo "\[\033[31m\]"; fi)[\#]-(\!)-(\j)-(\D{%a %m/%d/%Y %r %Z})\[\e[0m\]
-\[\033[0;33m\][\h][\u{$(contexthelper)}:\w]\[\033[0m\]
+\[\033[0;33m\][\h][\u{${CONV_CONTEXT}}:\w]\[\033[0m\]
 $(ls -1 | wc -l) files
 \$ '
-export PROMPT_COMMAND='echo -ne "\033]0;$(hostname)(${USER}@$(contexthelper)):$(pwd)\007"'
+export PROMPT_COMMAND='echo -ne "\033]0;$(hostname)(${USER}@${CONV_CONTEXT}):$(pwd)\007"'
 export PS2='> ' 
 export PS3='#? '
 export PS4='+ ' 
@@ -495,10 +500,11 @@ if [[ $- = *i* ]]; then
 	# If multiple directories have same name,
 	# cd into local directory first, otherwise 1st directory found in CDPATH
 	# NOTE: '..' also finds parallel directories, e.g., src, sysin, bin
-	export CDPATH=".:$HOME/develop:$HOME/develop/$CUST:$CONVSHR:$CONVDIR:.."
+	#export CDPATH=".:$HOME/dev:$HOME/dev/$CUST:$CONVSHR:$CONVDIR:.."
+	export CDPATH=".:..:$HOME/dev:$HOME:$CONV_SHARE:$CONVDIR:$DATADIR:$CONV_CONTEXTS"
 
 	#ottocheck
-	svccheck
+	#svccheck
 	#if [ -f $HOME/bin/wintitle ]; then
 	#	$HOME/bin/wintitle "$CUST"
 	#fi

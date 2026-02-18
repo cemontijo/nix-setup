@@ -18,9 +18,9 @@ set > ~/.ksh_envvars
 #chmod +x > ~/.ksh_aliases
 
 # Activate conversion default setup
-if [ -f /usr/local/conv/etc/env_setup.sh ]; then
-	. /usr/local/conv/etc/env_setup.sh > /dev/null
-fi
+#if [ -f /usr/local/conv/etc/env_setup.sh ]; then
+#	. /usr/local/conv/etc/env_setup.sh > /dev/null
+#fi
 
 if [[ $- = *i* ]]; then
 	echo "Running $SHELL"
