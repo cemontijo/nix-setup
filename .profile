@@ -1,10 +1,5 @@
 # If ksh is your default shell, this file will run first.
 
-# Source global definitions
-#if [ -f /etc/profile ]; then
-#	. /etc/profile
-#fi
-
 # Environment file with customizations
 export ENV=~/.kshrc
 
@@ -24,9 +19,6 @@ fi
 
 if [[ $- = *i* ]]; then
 	echo "Running $SHELL"
-	#echo ""
-	#echo 'Customized $PATH:' $PATH
-
 	#SWITCH to bash instead
 	bash
 fi

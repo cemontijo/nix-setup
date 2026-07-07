@@ -2,12 +2,9 @@
 # .bash_profile
 
 # Get the aliases and functions
-#if [ -f ~/.bashrc ]; then
-#	. ~/.bashrc
-#fi
-#if [ -f ~/.bashrc_default ]; then
-#	. ~/.bashrc_default
-#fi
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
 
 # User specific environment and startup programs
 export PATH=$PATH:$HOME/bin
@@ -26,7 +23,7 @@ fi
 
 bashmyrc()
 {
-	bash --init-file /home/$LOGNAME/.bashrc
+	bash --init-file /home/"$LOGNAME"/.bashrc
 }
 
 cleanpath() 
