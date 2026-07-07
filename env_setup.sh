@@ -39,7 +39,7 @@ do
 done
 
 # the items below all require that CONVDIR be set.  Make sure it is set before running these commands
-if [ "${CONVDIR:-xxx}" != "xxx" ]; then
+if [ -n "${CONVDIR}" ]; then
 
 	if [ "${SRCPATH:-xxx}" = "xxx" ]; then 
 		echo "setting SRCPATH";

@@ -220,7 +220,7 @@ f()
 {
 	if [ "$#" = 0 ]; then
 		finger
-	elif [ -n "$*" ]; then
+	elif [ $# -gt 0 ]; then
 		finger "$@"
 		#GET USER NAME
 		typeset -u choice
