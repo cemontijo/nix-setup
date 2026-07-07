@@ -12,11 +12,9 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# Conversion specific setup
-#
 # Activate default conversion setup
-if [ -f /usr/local/conv/cnv_config/env_setup.sh ]; then
-	. /usr/local/conv/cnv_config/env_setup.sh > /dev/null
+if [ -f /usr/local/conv/etc/env_setup.sh ]; then
+	. /usr/local/conv/etc/env_setup.sh > /dev/null
 fi
 
 export SHELL=$(which bash)
@@ -33,6 +31,5 @@ if [[ $- = *i* ]]; then
 	echo '$HISTFILE:'$HISTFILE
 	echo ""
 	date
-	#ottocheck
 	svccheck
-fi 
+fi
