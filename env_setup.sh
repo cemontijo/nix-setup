@@ -1,12 +1,11 @@
-if [ "${BASEDIR:-xxx}" = "xxx" ]; then BASEDIR=..;export BASEDIR; fi
-if [ "${DATADIR:-xxx}" = "xxx" ]; then DATADIR=../data;export DATADIR; fi
-if [ "${LOGSDIR:-xxx}" = "xxx" ]; then LOGSDIR=../logs;export LOGSDIR; fi
-if [ "${OUTSDIR:-xxx}" = "xxx" ]; then OUTSDIR=../outs;export OUTSDIR; fi
-if [ "${RPTDIR:-xxx}"  = "xxx" ]; then RPTDIR=../rpt;export RPTDIR; fi
-if [ "${SQLDIR:-xxx}"  = "xxx" ]; then SQLDIR=../sql;export SQLDIR; fi
-if [ "${SRCDIR:-xxx}"  = "xxx" ]; then SRCDIR=../bin;export SRCDIR; fi
-#if [ "${SYNDIR:-xxx}"  = "xxx" ]; then SYNDIR=../sysin;export SYNDIR; fi
-if [ "${SYNPATH:-xxx}"  = "xxx" ]; then SYNPATH=../sysin;export SYNPATH; fi
+if [ -z "${BASEDIR}" ]; then export BASEDIR=..; fi
+if [ -z "${DATADIR}" ]; then export DATADIR=../data; fi
+if [ -z "${LOGSDIR}" ]; then export LOGSDIR=../logs; fi
+if [ -z "${OUTSDIR}" ]; then export OUTSDIR=../outs; fi
+if [ -z "${RPTDIR}" ];  then export RPTDIR=../rpt; fi
+if [ -z "${SQLDIR}" ];  then export SQLDIR=../sql; fi
+if [ -z "${SRCDIR}" ];  then export SRCDIR=../bin; fi
+if [ -z "${SYNPATH}" ]; then export SYNPATH=../sysin; fi
 
 export TMPDIR=/tmp
 export CONVSHR=/conv/share
@@ -34,13 +33,13 @@ export NLS_LANG="American_America.AL32UTF8"
 config_path=/usr/local/conv/etc/enabled-modules
 for entry in "$config_path"/*
 do
-	if [ -r $entry ] ; then
-		source $entry
+	if [ -r "$entry" ] ; then
+		source "$entry"
 	fi
 done
 
 # the items below all require that CONVDIR be set.  Make sure it is set before running these commands
-if [ "${CONVDIR:=xxx}" != "xxx" ]; then
+if [ "${CONVDIR:-xxx}" != "xxx" ]; then
 
 	if [ "${SRCPATH:-xxx}" = "xxx" ]; then 
 		echo "setting SRCPATH";
@@ -84,7 +83,6 @@ if [[ $- = *i* ]]; then
 	echo "RPTDIR=$RPTDIR"
 	echo "SQLDIR=$SQLDIR"
 	echo "SRCDIR=$SRCDIR"
-	echo "SYNDIR=$SYNDIR"
 	echo "SCHEMAPATH=$SCHEMAPATH"
 	echo "SYNPATH=$SYNPATH"
 	echo "AIM_CONFIG=$AIM_CONFIG"
