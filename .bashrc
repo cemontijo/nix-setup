@@ -139,7 +139,7 @@ alias vir="vim -R -i NONE"
 #	Please edit .profile according to your site requirements.
 
 # Set up the search paths:
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/bin:../bin
 PATH=$PATH:$HOME/.vim/bundle/vim-superman/bin
 
 # Add to your ~/.bashrc to get tab completion
@@ -501,7 +501,7 @@ if [[ $- = *i* ]]; then
 	# cd into local directory first, otherwise 1st directory found in CDPATH
 	# NOTE: '..' also finds parallel directories, e.g., src, sysin, bin
 	#export CDPATH=".:$HOME/dev:$HOME/dev/$CUST:$CONVSHR:$CONVDIR:.."
-	export CDPATH=".:..:$HOME/dev:$HOME:$CONV_SHARE:$CONVDIR:$DATADIR:$CONV_CONTEXTS"
+	export CDPATH=".:..:../..:$HOME/dev:$HOME:$CONV_SHARE:$CONVDIR:$DATADIR:$CONV_CONTEXTS"
 
 	#ottocheck
 	#svccheck

@@ -36,3 +36,13 @@
 	directory = /home/conv/develop/ip-dc/ip-dc-libcnvcore
 	directory = /var/conv/homes/conv/develop/ip-dc/ip-dc-libcnvcore
 	directory = /var/conv/homes/conv/develop/ip-dc/ip-dc-dsv2xls
+	directory = /cnvmnt1/ip-dc-dashboard
+	directory = /cnvmnt4/build/clm_main
+	directory = /cnvmnt4/build/pau_main
+	directory = /cnvmnt4/build/sys_reptar
+	directory = /cnvmnt4/build/rbt_tablecopy
+	directory = /cnvmnt4/build/sys_tablecopy
+	directory = /cnvmnt4/build/mbr_case_mgmt
+	directory = /cnvmnt4/build/rbt_employee
+	directory = /cnvmnt4/build/fin_pfe
+	directory = /cnvmnt4/build/fnx_ap
