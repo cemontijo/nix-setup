@@ -20,7 +20,8 @@ export SHELL=$(which bash)
 # User specific vars
 ##############################
 export email=$(cat ~/.forward)
-export CARLOS=/var/conv/homes/pam.cmontijo
+#export CARLOS=/var/conv/homes/pam.cmontijo
+export CARLOS=$HOME
 
 export DSKS=$CARLOS/dev/dsks
 alias dsks="cd $DSKS; cl"
