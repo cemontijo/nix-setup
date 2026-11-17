@@ -395,9 +395,17 @@ if has("autocmd")
 		autocmd BufRead,BufNewFile *.sc  set filetype=c
 		autocmd BufRead,BufNewFile *.ctl  set filetype=conf
 		autocmd BufRead,BufNewFile *.jil  set filetype=conf
+		"autocmd BufRead,BufNewFile *.ZIP  setfiletype zip
+		autocmd BufRead,BufNewFile *.ZIP  set filetype=tar
 		autocmd BufNewFile,BufRead *.patch set filetype=diff
 		autocmd BufNewFile,BufRead *.preamble,*.postamble set filetype=xml
 		autocmd BufNewFile,BufRead *.module set filetype=sh
+
+		augroup uppercase_zip
+			autocmd!
+			autocmd BufReadCmd *.ZIP call zip#Browse(expand("<amatch>"))
+		augroup END
+
 		" Set all other files to sh
 		"autocmd BufNewFile,BufRead *.module,!(*.*)\@! set filetype=sh
 		"autocmd BufNewFile,BufRead *.module,^(*.*)\@! set filetype=sh
